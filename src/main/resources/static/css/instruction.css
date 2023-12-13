@@ -1,0 +1,76 @@
+/* -----Instruction----- */
+
+.instruction-container {
+    position: absolute;
+    top: 12%;
+
+    font-family: var(--text-font-family);
+    margin: 0 auto;
+
+    left: 50%;
+    margin-left: -500px;
+
+    opacity: 0;
+    z-index: -5;
+
+    visibility: hidden;
+}
+
+/* -----animation----- */
+
+.instruction-container-show {
+    animation-name: instruction-show;
+    animation-duration: 1s;
+
+    opacity: 1;
+    z-index: 0;
+
+    visibility: visible;
+}
+
+.instruction-container-hide {
+    animation-name: instruction-hide;
+    animation-duration: 1s;
+
+    opacity: 0;
+    z-index: -5;
+
+    visibility: hidden;
+}
+
+/* -----animation end----- */
+
+.instruction-wrapper {
+    background-color: var(--bg-color-black);
+    border: 1px solid transparent;
+    border-radius: 10px;    
+    padding: 10px;
+
+    width: 1000px;
+}
+
+.instruction {
+    background-color: var(--bg-color-white);
+    border: 1px solid transparent;
+    border-radius: 10px;    
+    padding: 5px;
+    font-family: var(--text-font-family);
+    color: var(--bg-color-black);
+    letter-spacing: 1px;
+}
+
+.instruction > p,
+.instruction > h1,
+.instruction > h2,
+.instruction > h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.instruction h1 {
+    text-align: center;
+}
+
+.instruction p {
+    text-indent: 25px;
+}

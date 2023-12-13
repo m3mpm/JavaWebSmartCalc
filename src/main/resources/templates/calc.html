@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartCalc</title>
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/root.css" th:href="@{/css/root.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/modal.css" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/calc.css" th:href="@{/css/calc.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/history.css" th:href="@{/css/history.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/chart.css" th:href="@{/css/chart.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/credit.css" th:href="@{/css/credit.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/instruction.css" th:href="@{/css/instruction.css}">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.3/dist/chart.umd.min.js"></script>
+
+</head>
+<body>
+    
+    <section id="menu-container">
+        <ul class="menu-main">
+            <li><span class="menu-item-1">Instruction</span></li>
+            <li><span class="menu-item-2 current">Calculator</span></li>
+            <li><span class="menu-item-3">Credit</span></li>
+        </ul>
+    </section>
+
+
+    <section class="instruction-container">
+        <div class="instruction-wrapper">
+            <div class="instruction">
+                <h1>JavaWebSmartCalc</h1>
+                <p>
+                    JavaWebSmartCalc поддерживает математический и кредитный калькулятор.
+                </p>
+                <h2>Математический калькулятоp</h2>
+                <h3>Общая информация</h3>
+                <p>
+                    Калькулятор поддерживает вычисление произвольных скобочных арифметических выражений в инфиксной
+                    нотации с подстановкой значения переменной <em>x</em> в виде числа. Поддерижвается ввод как целые числа, так и вещественные числа, записанные и через
+                    точку, и в экспоненциальной форме записи. Вычисление производится после полного ввода вычисляемого выражения и нажатия на кнопку с символом <em>=</em>.
+                </p>
+                <p>
+                    Калькулятор поддерживает следующие арифметические операции и математические функции: скобки (a + b), сложение a + b, 
+                    вычитание a - b, умножение a * b, деление a / b, возведение в степень a ^ b, остаток от деления a mod b, унарный плюс +a, унарный минус -a, cos(x), sin(x), tan(x), 
+                    acos(x), asin(x), atan(x), sqrt(x), ln(x), log(x).
+                </p>
+                <h3>Инструкция для математического калькулятора:</h3>
+                <ol>
+                    <li>Для получения результат вычисления необходимо ввести выражение и нажать на кнопку =</li>
+                    <li>Кнопка <- позволяет удалить последний введный символ</li>
+                    <li>Кнопка АС позволяет очистить экран</li>
+                    <li>Для ввода значения переменной x, необходимо нажать на кнопку SET, появиться модальное окно для ввода
+                        значения x. Для сохранения занчения нажмите кнопку SAVE, для отмены нажмите кнопку <em>x</em></li>
+                    <li>Для сброса значения переменной x, нажмите кнопку RESET</li>
+                    <li>Для просмотра истории нажмите кнопку HISTORY. Появится отдельное окно со списком введенных выражений</li>
+                    <li>Для построения графика нажмите кнопку GRAPH. Появиться отдельное окно. Введите занчение Min x, Max x, Min y, Max y и Step. 
+                        Для построения графика нажмите на кнопку Draw. Выражение должно содержать переменную x</li>
+                </ol>
+                <h2>Кредитный калькулятоp</h2>
+                <h3>Общая информация</h3>
+                <p>Кредитный калькулятор осуществляет 2 типа расчетов: </p>
+                <ul>
+                    <li>Аннуитетные ежемесячные платежи</li>
+                    <li>Дифференцированные ежемесячные платежи</li>
+                </ul>
+                <p>На выходе вы получите:</p>
+                <ul>
+                    <li>Размер ежемесячного платежа</li>
+                    <li>Сумму процентов (переплаты) за весь срок</li>
+                    <li>Общую сумму за весь срок</li>
+                    <li>Детализированный график погашения по месяцам</li>
+                </ul>
+                <h3>Инструкция для кредитного калькулятора: </h3>
+                <ol>
+                    <li>Введите сумму кредита, срок кредита(в месяцах), размер процентной ставки(% годовых)</li>
+                    <li>Выберите тип ежемесячных платежей</li>
+                    <li>Нажмите на кнопку Calculate</li>
+                </ol>
+        </div>   
+    </section>
+
+        </div>
+        
+    
+    <section class="calc-container">
+        <div class="calc-wrapper">
+            
+            <div class="display">
+                <p class="screen" th:text="${result}"></p>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-history">HISTORY</button>
+                <button class="btn-graph">GRAPH</button>
+                <button class="btn-open-bracket">(</button>
+                <button class="btn-close-bracket">)</button>
+                <button class="btn-erase"><-</button>
+                <button class="btn-ac">AC</button>
+                <button class="btn-divide opers">/</button>
+
+                <button class="btn-func">sin</button>
+                <button class="btn-func">cos</button>
+                <button class="btn-func">tan</button>
+                <button class="btn-digit">7</button>
+                <button class="btn-digit">8</button>
+                <button class="btn-digit">9</button>
+                <button class="btn-multi opers">*</button>
+
+                <button class="btn-func">asin</button>
+                <button class="btn-func">acos</button>
+                <button class="btn-func">atan</button>
+                <button class="btn-digit">4</button>
+                <button class="btn-digit">5</button>
+                <button class="btn-digit">6</button>
+                <button class="btn-plus opers">+</button>
+
+                <button class="btn-func">ln</button>
+                <button class="btn-func">sqrt</button>
+                <button class="btn-func">mod</button>
+                <button class="btn-digit">1</button>
+                <button class="btn-digit">2</button>
+                <button class="btn-digit">3</button>
+                <button class="btn-minus opers">-</button>
+
+                <button class="btn-func">log</button>
+                <button class="btn-exp">^</button>
+                <button class="btn-x">x</button>
+                <button class="btn-e">e</button>
+                <button class="btn-digit">0</button>
+                <button class="btn-dot">.</button>
+                <button class="btn-result">=</button>
+            </div>
+
+            <div class="show-x-container">
+                <p class="sign-x">x =</p>
+                <p class="screen-x">0.00</p>
+                <button class="btn-set-x">set</button>
+                <button class="btn-reset-x">reset</button>
+            </div>
+
+        </div>
+
+        <div class="history-container">
+            <div class="history-wrapper" >
+                <p>History</p>
+                <div class="history-table-wrapper">
+                    <table class="history-table"></table>
+                </div>
+                <button class="btn-clear-history">Clear</button>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-wrapper">
+                <div class="chart-data chart-flex-container">
+                    <div class="flex-item">
+                        <label for="chart-input-minX">Min X</label>
+                        <input id="chart-input-minX" type="number" min="-1000000" max="1000000" step="1" name="minX" value="-10">
+                    </div>
+                    <div class="flex-item">
+                        <label for="chart-input-maxX">Max X</label>
+                        <input id="chart-input-maxX" type="number" min="-1000000" max="1000000" step="1" name="maxX" value="10">
+                    </div>
+                    <div class="flex-item">
+                        <label for="chart-input-minY">Min Y</label>
+                        <input id="chart-input-minY" type="number" min="-1000000" max="1000000" step="1" name="minY" value="-10">
+                    </div>
+                    <div class="flex-item">
+                        <label for="chart-input-maxY">Max Y</label>
+                        <input id="chart-input-maxY" type="number" min="-1000000" max="1000000" step="1" name="maxY" value="10">
+                    </div>
+                    <div class="flex-item">
+                        <label for="chart-input-stepX">Step</label>
+                        <input id="chart-input-stepX" type="number" min="0.01" step="0.01" name="step" value="0.01" placeholder="0.01">
+                    </div>
+    
+                </div>
+    
+                <button class="btn-chart-draw" type="button">Draw</button>
+    
+                <div class="chart">
+                    <canvas width="700" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="modal modal-x">
+        <h2 class="modal-description">Enter x value</h2>
+        <form class="form-x">
+            <p>
+                <label class="visually-hidden" for="modal-input-x">x value</label>
+                <input id="modal-input-x" type="number" step="0.01" name="x" placeholder="0.00">
+            </p>
+            <button class="btn-modal-save" type="button">Save</button>
+        </form>
+        <button class="btn-modal-close" type="button">Close</button>
+    </section>
+
+    <div class="modal-overlay"></div>
+
+
+    <section class="credit-container">
+        <div class="credit-wrapper">
+            <div class="credit-data">
+                <div class="credit-flex-container">
+                    <div class="flex-item">
+                        <label for="credit-input-sum">Сумма кредита</label>
+                        <input id="credit-input-sum" type="number" min="1.00" step="0.01" value="10000.00">
+                    </div>
+        
+                    <div class="flex-item">
+                        <label for="credit-input-period">Срок кредита, мес</label>
+                        <input id="credit-input-period" type="number" min="1" step="1" value="12">
+                    </div>
+        
+                    <div class="flex-item">
+                        <label for="credit-input-percent">Процентная ставка, %</label>
+                        <input id="credit-input-percent" type="number" min="0.00" step="0.01" value="10.00">
+                    </div>
+                </div>
+
+                <div class="credit-type">
+                    <span>Тип ежемесячных платежей: </span>
+                    <input type="radio" id="annuity" name="credit-type" value="annuity" checked/>
+                    <label for="annuity">Аннуитетные</label>
+                    <input type="radio" id="different" name="credit-type" value="different" />
+                    <label for="different">Дифференцированные</label>
+                </div>
+                
+            </div>
+
+            <button class=  "btn-credit-result" type="button">Calculate</button>
+
+            <div class="credit-result">
+                <div>
+                    <span>Ежемесячный платеж: </span><span class="pay"></span>
+                </div>
+                <div>
+                    <span>Начисленные проценты: </span><span class="percent"></span>
+                </div>
+                <div>
+                    <span>Долг + проценты: </span><span class="total-sum"></span>
+                </div>
+            </div>
+
+        
+            <div class="credit-table-wrapper">
+                <table class="credit-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Месяц</th>
+                            <th scope="col">Сумма платежа</th>
+                            <th scope="col">Платеж по основному долгу</th>
+                            <th scope="col">Платеж по процентам</th>
+                            <th scope="col">Остаток долга</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" src="../static/js/service.js" th:src="@{js/service.js}"></script>
+    <script type="text/javascript" src="../static/js/history.js" th:src="@{js/history.js}"></script>
+    <script type="text/javascript" src="../static/js/chart.js" th:src="@{js/chart.js}"></script>
+    <script type="text/javascript" src="../static/js/credit.js" th:src="@{js/credit.js}"></script>
+    <script type="text/javascript" src="../static/js/calc.js" th:src="@{js/calc.js}"></script>
+</body>
+</html>
