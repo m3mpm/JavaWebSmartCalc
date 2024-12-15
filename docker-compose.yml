@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  nginx:
+    container_name: web_nginx
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx
+    ports:
+      - "80:80"
+    tty: true
+    stdin_open: true
+
+  java:
+    container_name: web_app
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile_java
+    depends_on:
+      - nginx
+    tty: true
+    stdin_open: true
+
