@@ -1,0 +1,23 @@
+:root {
+    --text-color: black;
+  
+    --bg-color-black: #1d2633;
+    --bg-color-white: rgb(235, 236, 244);
+  
+    --border-color: #4676D7;
+  
+    --text-color-button: #585a5e;
+    --border-color-button: #afafaf;
+    --bg-color-button: linear-gradient(to bottom,white, lightgrey);
+  
+    --text-color-menu: #feb386;
+  
+    --text-font-family: 'Ubuntu Condensed', sans-serif;
+  }
+  
+  body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color-white);  
+  }
+  

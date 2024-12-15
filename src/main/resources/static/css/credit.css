@@ -1,0 +1,143 @@
+/* -----Credit----- */
+
+.credit-container {
+    position: absolute;
+    top: 20%;
+    font-family: var(--text-font-family);
+    margin: 0 auto;
+    left: 50%;
+    margin-left: -350px;
+
+    opacity: 0;
+    z-index: -4;
+
+    visibility: hidden;
+}
+
+/* -----animation----- */
+.credit-container-show {
+    animation-name: credit-show;
+    animation-duration: 1s;
+
+    opacity: 1;
+    z-index: 0;
+
+    visibility: visible;
+}
+
+.credit-container-hide {
+    animation-name: credit-hide;
+    animation-duration: 1s;
+
+    opacity: 0;
+    z-index: -4;
+
+    visibility: hidden;
+}
+/* -----animation end----- */
+
+.credit-wrapper{
+    background-color: var(--bg-color-black);
+    border: 1px solid transparent;
+    border-radius: 10px;    
+    padding: 10px;
+
+    width: 700px;
+}
+
+.credit-data {
+    border: 3px solid var(--border-color);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+
+    font-family: var(--text-font-family);
+}
+
+.credit-data .credit-flex-container{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.credit-flex-container .flex-item {
+    height: fit-content;
+    width: fit-content;
+    flex-basis: 40%;
+    letter-spacing: 1px;
+}
+
+.credit-flex-container .flex-item label {
+    color: var(--text-color-menu);
+}
+
+.credit-type {
+    display: inline;
+    letter-spacing: 1px;
+}
+
+.credit-type label,
+.credit-type span {
+    color: var(--text-color-menu);
+}
+
+.credit-wrapper button {
+    width: 100%;
+    border: 3px solid var(--border-color-button);
+    border-radius: 10px;
+    color: var(--text-color-button);
+    background: var(--bg-color-button);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    font-family: var(--text-font-family);
+    letter-spacing: 1px;
+}
+
+.credit-wrapper button:hover {
+    outline: none;
+    border: 3px solid var(--border-color);
+}
+
+.credit-wrapper button:active {
+    -webkit-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.98);
+    background: var(--text-color-menu);
+}
+
+
+.credit-result {
+    border: 3px solid var(--border-color);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+
+    font-family: var(--text-font-family);
+    letter-spacing: 1px;
+    color: var(--text-color-menu);
+}
+
+
+.credit-table-wrapper {
+    background-color: var(--bg-color-white);
+    border: 1px solid transparent;
+    border-radius: 10px; 
+    width: auto;
+    height: 334px;
+    overflow: auto;
+}
+
+table.credit-table {
+    width: 100%;
+}
+
+table.credit-table td,
+table.credit-table th {
+    text-align: center;
+}
+
+.pay, .percent, .total-sum {
+    color: var(--bg-color-white);
+}
